@@ -29,29 +29,40 @@ function toTree(obj: any, key: string = `.`, nodes = new Map()): HoisterTree {
   return node;
 }
 
-const npmListOutput = execSync('npm list --omit dev -a --json --long', { encoding: 'utf-8' });
+const npmListOutput = execSync("npm list --omit dev -a --json --long", {
+  cwd: "./tests/tar-demo/",
+  encoding: "utf-8",
+});
+
 const dependencyTree = JSON.parse(npmListOutput);
 
-function processDependencies(dependencies, currentPath = process.cwd(), depth = 0) {
+function processDependencies(
+  dependencies,
+  currentPath = process.cwd(),
+  depth = 0
+) {
   if (!dependencies) return;
 
-  Object.keys(dependencies).forEach(name => {
+  Object.keys(dependencies).forEach((name) => {
     const module = dependencies[name];
-    
-    // 使用 npm list 提供的路径信息
+
     if (module.path) {
       const relativePath = path.relative(process.cwd(), module.path);
-      console.log('  '.repeat(depth) + `${name}@${module.version} -> ${relativePath}`);
+      console.log(
+        "  ".repeat(depth) + `${name}@${module.version} -> ${relativePath}`
+      );
     } else {
-      console.log('  '.repeat(depth) + `${name}@${module.version} -> 路径未知`);
+      console.log("  ".repeat(depth) + `${name}@${module.version} -> 路径未知`);
     }
 
-    // 检查是否存在 package.json 来验证路径
-    const packageJsonPath = path.join(module.path || '', 'package.json');
+    const packageJsonPath = path.join(module.path || "", "package.json");
     if (fs.existsSync(packageJsonPath)) {
       const packageJson = require(packageJsonPath);
       if (packageJson.version !== module.version) {
-        console.log('  '.repeat(depth) + `  警告: package.json 版本 (${packageJson.version}) 与依赖树版本不匹配`);
+        console.log(
+          "  ".repeat(depth) +
+            `  警告: package.json 版本 (${packageJson.version}) 与依赖树版本不匹配`
+        );
       }
     }
 
