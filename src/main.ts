@@ -1,6 +1,14 @@
-import { hoist , HoisterDependencyKind, type HoisterTree, type HoisterResult } from '@yarnpkg/nm'
+import {
+  hoist,
+  HoisterDependencyKind,
+  type HoisterTree,
+  type HoisterResult,
+} from "@yarnpkg/nm";
+import { execSync } from "child_process";
+import path from "path";
+import fs from "fs";
 
-const toTree = (obj: any, key: string = `.`, nodes = new Map()): HoisterTree => {
+function toTree(obj: any, key: string = `.`, nodes = new Map()): HoisterTree {
   let node = nodes.get(key);
   const name = key.match(/@?[^@]+/)![0];
   if (!node) {
@@ -14,149 +22,51 @@ const toTree = (obj: any, key: string = `.`, nodes = new Map()): HoisterTree => 
     };
     nodes.set(key, node);
 
-    for (const dep of ((obj[key] || {}).dependencies || [])) {
+    for (const dep of (obj[key] || {}).dependencies || []) {
       node.dependencies.add(toTree(obj, dep, nodes));
     }
   }
   return node;
-};
+}
 
-const treeString = `
-{
-  "version": "1.0.0",
-  "name": "TestApp",
-  "dependencies": {
-    "es5-ext": {
-      "version": "0.10.53",
-      "resolved": "https://registry.npmjs.org/es5-ext/-/es5-ext-0.10.53.tgz",
-      "overridden": false,
-      "dependencies": {
-        "es6-iterator": {
-          "version": "2.0.3",
-          "resolved": "https://registry.npmjs.org/es6-iterator/-/es6-iterator-2.0.3.tgz",
-          "overridden": false,
-          "dependencies": {
-            "d": {
-              "version": "1.0.2",
-              "resolved": "https://registry.npmjs.org/d/-/d-1.0.2.tgz",
-              "overridden": false,
-              "dependencies": {
-                "es5-ext": {
-                  "version": "0.10.64",
-                  "resolved": "https://registry.npmjs.org/es5-ext/-/es5-ext-0.10.64.tgz",
-                  "overridden": false,
-                  "dependencies": {
-                    "es6-iterator": {
-                      "version": "2.0.3"
-                    },
-                    "es6-symbol": {
-                      "version": "3.1.4"
-                    },
-                    "esniff": {
-                      "version": "2.0.1",
-                      "resolved": "https://registry.npmjs.org/esniff/-/esniff-2.0.1.tgz",
-                      "overridden": false,
-                      "dependencies": {
-                        "d": {
-                          "version": "1.0.2"
-                        },
-                        "es5-ext": {
-                          "version": "0.10.64",
-                          "resolved": "https://registry.npmjs.org/es5-ext/-/es5-ext-0.10.64.tgz",
-                          "overridden": false,
-                          "dependencies": {
-                            "es6-iterator": {
-                              "version": "2.0.3"
-                            },
-                            "es6-symbol": {
-                              "version": "3.1.4"
-                            },
-                            "esniff": {
-                              "version": "2.0.1"
-                            },
-                            "next-tick": {
-                              "version": "1.1.0",
-                              "resolved": "https://registry.npmjs.org/next-tick/-/next-tick-1.1.0.tgz",
-                              "overridden": false
-                            }
-                          }
-                        },
-                        "event-emitter": {
-                          "version": "0.3.5",
-                          "resolved": "https://registry.npmjs.org/event-emitter/-/event-emitter-0.3.5.tgz",        
-                          "overridden": false,
-                          "dependencies": {
-                            "d": {
-                              "version": "1.0.2"
-                            },
-                            "es5-ext": {
-                              "version": "0.10.53"
-                            }
-                          }
-                        },
-                        "type": {
-                          "version": "2.7.3"
-                        }
-                      }
-                    },
-                    "next-tick": {
-                      "version": "1.1.0",
-                      "resolved": "https://registry.npmjs.org/next-tick/-/next-tick-1.1.0.tgz",
-                      "overridden": false
-                    }
-                  }
-                },
-                "type": {
-                  "version": "2.7.3",
-                  "resolved": "https://registry.npmjs.org/type/-/type-2.7.3.tgz",
-                  "overridden": false
-                }
-              }
-            },
-            "es5-ext": {
-              "version": "0.10.53"
-            },
-            "es6-symbol": {
-              "version": "3.1.4"
-            }
-          }
-        },
-        "es6-symbol": {
-          "version": "3.1.4",
-          "resolved": "https://registry.npmjs.org/es6-symbol/-/es6-symbol-3.1.4.tgz",
-          "overridden": false,
-          "dependencies": {
-            "d": {
-              "version": "1.0.2"
-            },
-            "ext": {
-              "version": "1.7.0",
-              "resolved": "https://registry.npmjs.org/ext/-/ext-1.7.0.tgz",
-              "overridden": false,
-              "dependencies": {
-                "type": {
-                  "version": "2.7.3"
-                }
-              }
-            }
-          }
-        },
-        "next-tick": {
-          "version": "1.0.0",
-          "resolved": "https://registry.npmjs.org/next-tick/-/next-tick-1.0.0.tgz",
-          "overridden": false
-        }
+const npmListOutput = execSync('npm list --omit dev -a --json --long', { encoding: 'utf-8' });
+const dependencyTree = JSON.parse(npmListOutput);
+
+function processDependencies(dependencies, currentPath = process.cwd(), depth = 0) {
+  if (!dependencies) return;
+
+  Object.keys(dependencies).forEach(name => {
+    const module = dependencies[name];
+    
+    // 使用 npm list 提供的路径信息
+    if (module.path) {
+      const relativePath = path.relative(process.cwd(), module.path);
+      console.log('  '.repeat(depth) + `${name}@${module.version} -> ${relativePath}`);
+    } else {
+      console.log('  '.repeat(depth) + `${name}@${module.version} -> 路径未知`);
+    }
+
+    // 检查是否存在 package.json 来验证路径
+    const packageJsonPath = path.join(module.path || '', 'package.json');
+    if (fs.existsSync(packageJsonPath)) {
+      const packageJson = require(packageJsonPath);
+      if (packageJson.version !== module.version) {
+        console.log('  '.repeat(depth) + `  警告: package.json 版本 (${packageJson.version}) 与依赖树版本不匹配`);
       }
     }
-  }
+
+    // 递归处理子依赖
+    processDependencies(module.dependencies, module.path, depth + 1);
+  });
 }
-`
+
+processDependencies(dependencyTree.dependencies);
 
 function flattenDependencies(tree) {
   const result = {
     ".": {
-      dependencies: []
-    }
+      dependencies: [],
+    },
   };
 
   function flatten(node: any, parentKey = ".") {
@@ -187,25 +97,21 @@ function flattenDependencies(tree) {
   return result;
 }
 
-const tree = JSON.parse(treeString);
-
 //  console.log(JSON.stringify(flattenDependencies(tree)));
 
-const h = hoist(toTree(flattenDependencies(tree)), {check: true})
+const h = hoist(toTree(flattenDependencies(dependencyTree)), { check: true });
 
-const d = h.dependencies
+const d = h.dependencies;
 // console.log(d);
 d.forEach((dep) => {
-        console.log(dep.name,dep.references );
-        if (dep.dependencies.size > 0) {
-                dep.dependencies.forEach((dep) => {
-                        console.log(`  ${dep.name}, ${dep.references}`);
-                });
-        }
-})
+  console.log(dep.name, dep.references);
+  if (dep.dependencies.size > 0) {
+    dep.dependencies.forEach((dep) => {
+      console.log(`  ${dep.name}, ${dep.references}`);
+    });
+  }
+});
 //console.log(JSON.stringify(h));
-
-
 
 //  const tree = {
 //        '.': {dependencies: [`A`, `C@Y`, `D@Y`]},
@@ -218,4 +124,4 @@ d.forEach((dep) => {
 // console.log(JSON.stringify(tree));
 // const h = hoist(toTree(tree), {check: true})
 
-// console.log(h);%                     
+// console.log(h);%
