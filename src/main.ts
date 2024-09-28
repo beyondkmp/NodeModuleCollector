@@ -3,7 +3,7 @@ import {
   HoisterDependencyKind,
   type HoisterTree,
   type HoisterResult,
-} from "@yarnpkg/nm";
+} from "./hoist";
 import { execSync } from "child_process";
 import path from "path";
 import fs from "fs";
@@ -112,16 +112,13 @@ function flattenDependencies(tree) {
 
 const h = hoist(toTree(flattenDependencies(dependencyTree)), { check: true });
 
-const d = h.dependencies;
-// console.log(d);
-d.forEach((dep) => {
-  console.log(dep.name, dep.references);
-  if (dep.dependencies.size > 0) {
-    dep.dependencies.forEach((dep) => {
-      console.log(`  ${dep.name}, ${dep.references}`);
-    });
-  }
-});
+for (let d of h.dependencies.values()) {
+	console.log(d.name, d.references)
+	for (let c of d.dependencies.values()){
+	    console.log('    child',c.name, c.references)
+	}
+}
+
 //console.log(JSON.stringify(h));
 
 //  const tree = {
