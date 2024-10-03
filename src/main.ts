@@ -1,12 +1,9 @@
 import {
   hoist,
-  HoisterDependencyKind,
   type HoisterTree,
   type HoisterResult,
 } from "./hoist";
 import { execSync } from "child_process";
-import path from "path";
-import fs from "fs";
 
 function toTree(obj: any, key: string = `.`, nodes = new Map()): HoisterTree {
   let node = nodes.get(key);
@@ -35,43 +32,7 @@ const npmListOutput = execSync("npm list --omit dev -a --json --long", {
 });
 
 const dependencyTree = JSON.parse(npmListOutput);
-
-function processDependencies(
-  dependencies,
-  currentPath = process.cwd(),
-  depth = 0
-) {
-  if (!dependencies) return;
-
-  Object.keys(dependencies).forEach((name) => {
-    const module = dependencies[name];
-
-    if (module.path) {
-      const relativePath = path.relative(process.cwd(), module.path);
-      console.log(
-        "  ".repeat(depth) + `${name}@${module.version} -> ${relativePath}`
-      );
-    } else {
-      console.log("  ".repeat(depth) + `${name}@${module.version} -> 路径未知`);
-    }
-
-    const packageJsonPath = path.join(module.path || "", "package.json");
-    if (fs.existsSync(packageJsonPath)) {
-      const packageJson = require(packageJsonPath);
-      if (packageJson.version !== module.version) {
-        console.log(
-          "  ".repeat(depth) +
-            `  警告: package.json 版本 (${packageJson.version}) 与依赖树版本不匹配`
-        );
-      }
-    }
-
-    // 递归处理子依赖
-    processDependencies(module.dependencies, module.path, depth + 1);
-  });
-}
-
-processDependencies(dependencyTree.dependencies);
+const dependencyPathMap = new Map<string, string>();
 
 function flattenDependencies(tree) {
   const result = {
@@ -86,6 +47,7 @@ function flattenDependencies(tree) {
     for (const [key, value] of Object.entries(dependencies)) {
       const version = (value as any).version || "";
       const newKey = `${key}@${version}`;
+      dependencyPathMap.set(newKey, (value as any).path);
 
       if (parentKey === ".") {
         result["."].dependencies.push(newKey);
@@ -108,13 +70,27 @@ function flattenDependencies(tree) {
   return result;
 }
 
-//  console.log(JSON.stringify(flattenDependencies(tree)));
-
 const h = hoist(toTree(flattenDependencies(dependencyTree)), { check: true });
 
-for (let d of h.dependencies.values()) {
-	console.log(d.name, [...d.references][0])
-	for (let c of d.dependencies.values()){
-	    console.log('    child',c.name, [...c.references][0])
-	}
+function getNodeModules(dependencies: Set<HoisterResult>, result = {}) {  
+  if(dependencies.size === 0) return;
+
+  for (let d of dependencies.values()) {
+    const reference = [...d.references][0];
+    const p = dependencyPathMap.get(`${d.name}@${reference}`);
+    result[d.name] = {
+      name:d.name,
+      version: reference,
+      dir: p
+    }
+    if(d.dependencies.size > 0){
+      result[d.name].conflicDependencies = {};
+      getNodeModules(d.dependencies, result[d.name].conflicDependencies);
+    }
+  }
 }
+
+let result = {};
+getNodeModules(h.dependencies, result);
+
+console.log(JSON.stringify(result, null, 2));
