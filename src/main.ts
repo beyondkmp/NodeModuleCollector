@@ -38,9 +38,7 @@ class NodeModulesCollector {
 
   private flattenDependencies(tree: any) {
     const result = {
-      ".": {
-        dependencies: [],
-      },
+      ".": {},
     };
 
     const flatten = (node: any, parentKey = ".") => {
@@ -50,20 +48,10 @@ class NodeModulesCollector {
         const version = (value as any).version || "";
         const newKey = `${key}@${version}`;
         this.dependencyPathMap.set(newKey, (value as any).path);
-
-        if (parentKey === ".") {
-          result["."].dependencies.push(newKey);
-        } else {
-          if (!result[parentKey]) {
-            result[parentKey] = { dependencies: [] };
-          }
-          result[parentKey].dependencies.push(newKey);
+        if (!result[parentKey]?.dependencies) {
+          result[parentKey] = { dependencies: [] };
         }
-
-        if (!result[newKey]) {
-          result[newKey] = { dependencies: [] };
-        }
-
+        result[parentKey].dependencies.push(newKey);
         flatten(value, newKey);
       }
     }
