@@ -5,92 +5,112 @@ import {
 } from "./hoist";
 import { execSync } from "child_process";
 
-function toTree(obj: any, key: string = `.`, nodes = new Map()): HoisterTree {
-  let node = nodes.get(key);
-  const name = key.match(/@?[^@]+/)![0];
-  if (!node) {
-    node = {
-      name,
-      identName: (obj[key] || {}).identName || name,
-      reference: key.match(/@?[^@]+@?(.+)?/)![1] || ``,
-      dependencies: new Set<HoisterTree>(),
-      peerNames: new Set<string>((obj[key] || {}).peerNames || []),
-      dependencyKind: (obj[key] || {}).dependencyKind,
+
+class NodeModulesCollector {
+  private dependencyPathMap: Map<string, string>;
+  private nodeModules: any;
+
+  constructor() {
+    this.dependencyPathMap = new Map();
+    this.nodeModules = {};
+  }
+
+  private toTree(obj: any, key: string = `.`, nodes = new Map()): HoisterTree {
+    let node = nodes.get(key);
+    const name = key.match(/@?[^@]+/)![0];
+    if (!node) {
+      node = {
+        name,
+        identName: (obj[key] || {}).identName || name,
+        reference: key.match(/@?[^@]+@?(.+)?/)![1] || ``,
+        dependencies: new Set<HoisterTree>(),
+        peerNames: new Set<string>((obj[key] || {}).peerNames || []),
+        dependencyKind: (obj[key] || {}).dependencyKind,
+      };
+      nodes.set(key, node);
+
+      for (const dep of (obj[key] || {}).dependencies || []) {
+        node.dependencies.add(this.toTree(obj, dep, nodes));
+      }
+    }
+    return node;
+  }
+
+  private flattenDependencies(tree: any) {
+    const result = {
+      ".": {
+        dependencies: [],
+      },
     };
-    nodes.set(key, node);
 
-    for (const dep of (obj[key] || {}).dependencies || []) {
-      node.dependencies.add(toTree(obj, dep, nodes));
-    }
-  }
-  return node;
-}
+    const flatten = (node: any, parentKey = ".") => {
+      const dependencies = node.dependencies || {};
 
-const npmListOutput = execSync("npm list --omit dev -a --json --long", {
-  cwd: "./tests/tar-demo/",
-  encoding: "utf-8",
-});
+      for (const [key, value] of Object.entries(dependencies)) {
+        const version = (value as any).version || "";
+        const newKey = `${key}@${version}`;
+        this.dependencyPathMap.set(newKey, (value as any).path);
 
-const dependencyTree = JSON.parse(npmListOutput);
-const dependencyPathMap = new Map<string, string>();
-
-function flattenDependencies(tree) {
-  const result = {
-    ".": {
-      dependencies: [],
-    },
-  };
-
-  function flatten(node: any, parentKey = ".") {
-    const dependencies = node.dependencies || {};
-
-    for (const [key, value] of Object.entries(dependencies)) {
-      const version = (value as any).version || "";
-      const newKey = `${key}@${version}`;
-      dependencyPathMap.set(newKey, (value as any).path);
-
-      if (parentKey === ".") {
-        result["."].dependencies.push(newKey);
-      } else {
-        if (!result[parentKey]) {
-          result[parentKey] = { dependencies: [] };
+        if (parentKey === ".") {
+          result["."].dependencies.push(newKey);
+        } else {
+          if (!result[parentKey]) {
+            result[parentKey] = { dependencies: [] };
+          }
+          result[parentKey].dependencies.push(newKey);
         }
-        result[parentKey].dependencies.push(newKey);
-      }
 
-      if (!result[newKey]) {
-        result[newKey] = { dependencies: [] };
-      }
+        if (!result[newKey]) {
+          result[newKey] = { dependencies: [] };
+        }
 
-      flatten(value, newKey);
+        flatten(value, newKey);
+      }
+    }
+
+    flatten(tree);
+    return result;
+  }
+
+  protected getDependenciesTree() {
+    const npmListOutput = execSync("npm list --omit dev -a --json --long", {
+      cwd: "./tests/tar-demo/",
+      encoding: "utf-8",
+    });
+
+    const dependencyTree = JSON.parse(npmListOutput);
+    return dependencyTree;
+
+  }
+
+  private _getNodeModules(dependencies: Set<HoisterResult>, result = {}) {
+    if (dependencies.size === 0) return;
+
+    for (let d of dependencies.values()) {
+      const reference = [...d.references][0];
+      const p = this.dependencyPathMap.get(`${d.name}@${reference}`);
+      result[d.name] = {
+        name: d.name,
+        version: reference,
+        dir: p
+      }
+      if (d.dependencies.size > 0) {
+        result[d.name].conflicDependencies = {};
+        this._getNodeModules(d.dependencies, result[d.name].conflicDependencies);
+      }
     }
   }
 
-  flatten(tree);
-  return result;
-}
-
-const h = hoist(toTree(flattenDependencies(dependencyTree)), { check: true });
-
-function getNodeModules(dependencies: Set<HoisterResult>, result = {}) {  
-  if(dependencies.size === 0) return;
-
-  for (let d of dependencies.values()) {
-    const reference = [...d.references][0];
-    const p = dependencyPathMap.get(`${d.name}@${reference}`);
-    result[d.name] = {
-      name:d.name,
-      version: reference,
-      dir: p
-    }
-    if(d.dependencies.size > 0){
-      result[d.name].conflicDependencies = {};
-      getNodeModules(d.dependencies, result[d.name].conflicDependencies);
-    }
+  public getNodeModules() {
+    const tree = this.getDependenciesTree()
+    const flattenedTree = this.flattenDependencies(tree);
+    const hoisterResult = hoist(this.toTree(flattenedTree), { check: true });
+    this._getNodeModules(hoisterResult.dependencies, this.nodeModules);
+    return this.nodeModules;
   }
+
 }
 
-let result = {};
-getNodeModules(h.dependencies, result);
-
+const collector = new NodeModulesCollector();
+const result = collector.getNodeModules()
 console.log(JSON.stringify(result, null, 2));
