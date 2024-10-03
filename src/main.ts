@@ -113,23 +113,8 @@ function flattenDependencies(tree) {
 const h = hoist(toTree(flattenDependencies(dependencyTree)), { check: true });
 
 for (let d of h.dependencies.values()) {
-	console.log(d.name, d.references)
+	console.log(d.name, [...d.references][0])
 	for (let c of d.dependencies.values()){
-	    console.log('    child',c.name, c.references)
+	    console.log('    child',c.name, [...c.references][0])
 	}
 }
-
-//console.log(JSON.stringify(h));
-
-//  const tree = {
-//        '.': {dependencies: [`A`, `C@Y`, `D@Y`]},
-//        A: {dependencies: [`B`, `C@Z`, `F@Z`]},
-//        B: {dependencies: [`C@X`, `F@X`]},
-//        'F@X': {dependencies: [`G@X`]},
-//        'C@X': {dependencies: [`D@X`]},
-//      };
-
-// console.log(JSON.stringify(tree));
-// const h = hoist(toTree(tree), {check: true})
-
-// console.log(h);%
