@@ -6,9 +6,9 @@ import {
 
 
 export abstract class NodeModulesCollector {
-  private dependencyPathMap: Map<string, string>;
   private nodeModules: any;
   protected rootDir: string;
+  protected dependencyPathMap: Map<string, string>;
 
   constructor(rootDir: string) {
     this.dependencyPathMap = new Map();
@@ -37,7 +37,7 @@ export abstract class NodeModulesCollector {
     return node;
   }
 
-  private flattenDependencies(tree: any) {
+  public flattenDependencies(tree: any) {
     const result = {
       ".": {},
     };
