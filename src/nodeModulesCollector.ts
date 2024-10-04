@@ -80,10 +80,22 @@ export abstract class NodeModulesCollector {
     }
   }
 
+  private getTreeFromWorkspaces(tree: DependencyTree): DependencyTree {
+    if (tree.workspaces) {
+      for (const [key, value] of Object.entries(tree.dependencies)) {
+        if(this.rootDir.endsWith(path.normalize(key))) {
+          return value
+        } 
+      }
+    }
+    return tree
+  }
+
   public getNodeModules():NodeModuleInfo[] {
     const tree = this.getDependenciesTree()
-    const flattenedTree = this.TransToDependencyGraph(tree);
-    const hoisterResult = hoist(this.transToHoisterTree(flattenedTree), { check: true });
+    const realTree = this.getTreeFromWorkspaces(tree);
+    const dependencyGraph = this.TransToDependencyGraph(realTree);
+    const hoisterResult = hoist(this.transToHoisterTree(dependencyGraph), { check: true });
     this._getNodeModules(hoisterResult.dependencies, this.nodeModules);
     return this.nodeModules;
   }
