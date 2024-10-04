@@ -49,9 +49,9 @@ result is node modules array, like:
 
 ## Support
 
-[x] npm
-[x] pnpm
-[x] pnpm with hosited
-[x] yarn1
-[x] yarn berry(with node-modules)
+- [x] npm
+- [x] pnpm
+- [x] pnpm with hosited
+- [x] yarn1
+- [x] yarn berry(with node-modules)
 
