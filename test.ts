@@ -28,9 +28,9 @@ function transformToAbsolutePath(p: string) {
 }
 
 test("test npm package manager", async () => {
-  let rootDir = './tests/tar-demo';
+  let rootDir = './fixtures/npm-demo';
   let expected = transformToAbsolutePath(path.join(rootDir, 'expected.json'));
-  const ms = await getNodeModules('./tests/tar-demo')
+  const ms = await getNodeModules(rootDir)
   let a =JSON.stringify(ms, null, 2)
   let b = JSON.stringify(expected, null, 2)
   assert.is(a, b);
