@@ -1,7 +1,7 @@
 import { NpmNodeModulesCollector } from "./npmNodeModulesCollector"
 import { PnpmNodeModulesCollector } from "./pnpmNodeModulesCollector"
 import { YarnNodeModulesCollector } from "./yarnNodeModulesCollector"
-import { detect, PM } from "detect-package-manager"
+import { detect, PM } from "./packageManager"
 
 async function getCollectorByPackageManager(rootDir: string) {
   const manager: PM = await detect({ cwd: rootDir })
