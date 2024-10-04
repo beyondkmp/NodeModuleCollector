@@ -39,7 +39,7 @@ jobs:
         run: cd ./fixtures/npm-demo && npm install
 
       - name: Intall pnpm-demo deps
-        run: cd ./fixtures/pnpm-demo && pnpm store prune && pnpm install
+        run: cd ./fixtures/pnpm-demo && rm -rf node_modules && pnpm install
 
       - name: Intall yarn-demo deps
         run: cd ./fixtures/yarn-demo && yarn install
