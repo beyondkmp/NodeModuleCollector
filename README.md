@@ -2,7 +2,7 @@
 
 This is a simple tool to collect all production node modules used in a project. It supports npm, yarn1, pnpm and yarn berry(with node-modules).
 
-It is useful to collect all production node modules for a project, so that you can easily to package them into electron asar.
+It is useful to collect all production node modules for a electron project, so that you can easily to package them into electron asar.
 
 ## Design
 
