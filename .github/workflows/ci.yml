@@ -52,9 +52,3 @@ jobs:
 
       - name: Build and Test
         run: npm run test
-
-      - name: Release
-        run: pnpx semantic-release --branches main
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

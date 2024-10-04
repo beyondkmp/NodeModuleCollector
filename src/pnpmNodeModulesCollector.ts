@@ -15,7 +15,6 @@ export class PnpmNodeModulesCollector extends NodeModulesCollector {
     });
 
     const dependencyTree: DependencyTree = JSON.parse(pnpmListOutput)[0];
-    console.log("pnpm is here",dependencyTree)
     return dependencyTree;
   }
 }

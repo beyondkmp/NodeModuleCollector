@@ -6,7 +6,6 @@ import { NodeModuleInfo } from "./types"
 
 async function getCollectorByPackageManager(rootDir: string) {
   const manager: PM = await detect({ cwd: rootDir })
-  console.log(`Detected package manager: ${manager}`)
   switch (manager) {
     case "npm":
       return new NpmNodeModulesCollector(rootDir)
