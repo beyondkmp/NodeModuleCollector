@@ -1,0 +1,250 @@
+[
+  {
+    "name": "tar",
+    "version": "7.4.3",
+    "dir": "tests/tar-demo/node_modules/tar"
+  },
+  {
+    "name": "@isaacs/fs-minipass",
+    "version": "4.0.1",
+    "dir": "tests/tar-demo/node_modules/@isaacs/fs-minipass"
+  },
+  {
+    "name": "chownr",
+    "version": "3.0.0",
+    "dir": "tests/tar-demo/node_modules/tar/node_modules/chownr"
+  },
+  {
+    "name": "minipass",
+    "version": "7.1.2",
+    "dir": "tests/tar-demo/node_modules/path-scurry/node_modules/minipass"
+  },
+  {
+    "name": "minizlib",
+    "version": "3.0.1",
+    "dir": "tests/tar-demo/node_modules/tar/node_modules/minizlib"
+  },
+  {
+    "name": "mkdirp",
+    "version": "3.0.1",
+    "dir": "tests/tar-demo/node_modules/tar/node_modules/mkdirp"
+  },
+  {
+    "name": "yallist",
+    "version": "5.0.0",
+    "dir": "tests/tar-demo/node_modules/tar/node_modules/yallist"
+  },
+  {
+    "name": "rimraf",
+    "version": "5.0.10",
+    "dir": "tests/tar-demo/node_modules/tar/node_modules/rimraf"
+  },
+  {
+    "name": "glob",
+    "version": "10.4.5",
+    "dir": "tests/tar-demo/node_modules/tar/node_modules/glob"
+  },
+  {
+    "name": "foreground-child",
+    "version": "3.3.0",
+    "dir": "tests/tar-demo/node_modules/foreground-child"
+  },
+  {
+    "name": "jackspeak",
+    "version": "3.4.3",
+    "dir": "tests/tar-demo/node_modules/jackspeak"
+  },
+  {
+    "name": "minimatch",
+    "version": "9.0.5",
+    "dir": "tests/tar-demo/node_modules/tar/node_modules/minimatch"
+  },
+  {
+    "name": "package-json-from-dist",
+    "version": "1.0.0",
+    "dir": "tests/tar-demo/node_modules/package-json-from-dist"
+  },
+  {
+    "name": "path-scurry",
+    "version": "1.11.1",
+    "dir": "tests/tar-demo/node_modules/path-scurry"
+  },
+  {
+    "name": "cross-spawn",
+    "version": "7.0.3",
+    "dir": "tests/tar-demo/node_modules/cross-spawn"
+  },
+  {
+    "name": "signal-exit",
+    "version": "4.1.0",
+    "dir": "tests/tar-demo/node_modules/foreground-child/node_modules/signal-exit"  
+  },
+  {
+    "name": "@isaacs/cliui",
+    "version": "8.0.2",
+    "dir": "tests/tar-demo/node_modules/@isaacs/cliui",
+    "dependencies": [
+      {
+        "name": "strip-ansi",
+        "version": "7.1.0",
+        "dir": "tests/tar-demo/node_modules/@isaacs/cliui/node_modules/strip-ansi" 
+      },
+      {
+        "name": "ansi-regex",
+        "version": "6.1.0",
+        "dir": "tests/tar-demo/node_modules/@isaacs/cliui/node_modules/ansi-regex" 
+      }
+    ]
+  },
+  {
+    "name": "@pkgjs/parseargs",
+    "version": "0.11.0",
+    "dir": "tests/tar-demo/node_modules/@pkgjs/parseargs"
+  },
+  {
+    "name": "brace-expansion",
+    "version": "2.0.1",
+    "dir": "tests/tar-demo/node_modules/brace-expansion"
+  },
+  {
+    "name": "lru-cache",
+    "version": "10.4.3",
+    "dir": "tests/tar-demo/node_modules/path-scurry/node_modules/lru-cache"
+  },
+  {
+    "name": "path-key",
+    "version": "3.1.1",
+    "dir": "tests/tar-demo/node_modules/path-key"
+  },
+  {
+    "name": "shebang-command",
+    "version": "2.0.0",
+    "dir": "tests/tar-demo/node_modules/shebang-command"
+  },
+  {
+    "name": "which",
+    "version": "2.0.2",
+    "dir": "tests/tar-demo/node_modules/which"
+  },
+  {
+    "name": "string-width-cjs",
+    "version": "4.2.3",
+    "dir": "tests/tar-demo/node_modules/string-width-cjs"
+  },
+  {
+    "name": "string-width",
+    "version": "5.1.2",
+    "dir": "tests/tar-demo/node_modules/@isaacs/cliui/node_modules/string-width",  
+    "dependencies": [
+      {
+        "name": "emoji-regex",
+        "version": "9.2.2",
+        "dir": "tests/tar-demo/node_modules/@isaacs/cliui/node_modules/emoji-regex"
+      },
+      {
+        "name": "strip-ansi",
+        "version": "7.1.0",
+        "dir": "tests/tar-demo/node_modules/@isaacs/cliui/node_modules/strip-ansi" 
+      },
+      {
+        "name": "ansi-regex",
+        "version": "6.1.0",
+        "dir": "tests/tar-demo/node_modules/@isaacs/cliui/node_modules/ansi-regex" 
+      }
+    ]
+  },
+  {
+    "name": "strip-ansi-cjs",
+    "version": "6.0.1",
+    "dir": "tests/tar-demo/node_modules/strip-ansi-cjs"
+  },
+  {
+    "name": "wrap-ansi-cjs",
+    "version": "7.0.0",
+    "dir": "tests/tar-demo/node_modules/wrap-ansi-cjs",
+    "dependencies": [
+      {
+        "name": "string-width",
+        "version": "4.2.3",
+        "dir": "tests/tar-demo/node_modules/string-width"
+      }
+    ]
+  },
+  {
+    "name": "wrap-ansi",
+    "version": "8.1.0",
+    "dir": "tests/tar-demo/node_modules/@isaacs/cliui/node_modules/wrap-ansi",     
+    "dependencies": [
+      {
+        "name": "ansi-styles",
+        "version": "6.2.1",
+        "dir": "tests/tar-demo/node_modules/@isaacs/cliui/node_modules/ansi-styles"
+      },
+      {
+        "name": "strip-ansi",
+        "version": "7.1.0",
+        "dir": "tests/tar-demo/node_modules/@isaacs/cliui/node_modules/strip-ansi" 
+      },
+      {
+        "name": "ansi-regex",
+        "version": "6.1.0",
+        "dir": "tests/tar-demo/node_modules/@isaacs/cliui/node_modules/ansi-regex" 
+      }
+    ]
+  },
+  {
+    "name": "balanced-match",
+    "version": "1.0.2",
+    "dir": "tests/tar-demo/node_modules/balanced-match"
+  },
+  {
+    "name": "shebang-regex",
+    "version": "3.0.0",
+    "dir": "tests/tar-demo/node_modules/shebang-regex"
+  },
+  {
+    "name": "isexe",
+    "version": "2.0.0",
+    "dir": "tests/tar-demo/node_modules/isexe"
+  },
+  {
+    "name": "emoji-regex",
+    "version": "8.0.0",
+    "dir": "tests/tar-demo/node_modules/emoji-regex"
+  },
+  {
+    "name": "is-fullwidth-code-point",
+    "version": "3.0.0",
+    "dir": "tests/tar-demo/node_modules/is-fullwidth-code-point"
+  },
+  {
+    "name": "strip-ansi",
+    "version": "6.0.1",
+    "dir": "tests/tar-demo/node_modules/strip-ansi"
+  },
+  {
+    "name": "eastasianwidth",
+    "version": "0.2.0",
+    "dir": "tests/tar-demo/node_modules/eastasianwidth"
+  },
+  {
+    "name": "ansi-regex",
+    "version": "5.0.1",
+    "dir": "tests/tar-demo/node_modules/ansi-regex"
+  },
+  {
+    "name": "ansi-styles",
+    "version": "4.3.0",
+    "dir": "tests/tar-demo/node_modules/ansi-styles"
+  },
+  {
+    "name": "color-convert",
+    "version": "2.0.1",
+    "dir": "tests/tar-demo/node_modules/color-convert"
+  },
+  {
+    "name": "color-name",
+    "version": "1.1.4",
+    "dir": "tests/tar-demo/node_modules/color-name"
+  }
+]

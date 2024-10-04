@@ -8,12 +8,12 @@ export class YarnNodeModulesCollector extends NodeModulesCollector {
   }
 
   getDependenciesTree() {
-		const npmListOutput = execSync("npm list --omit dev -a --json --long", {
-			cwd: this.rootDir,
-			encoding: "utf-8",
-		});
+    const npmListOutput = execSync("npm list --omit dev -a --json --long", {
+      cwd: this.rootDir,
+      encoding: "utf-8",
+    });
 
-		const dependencyTree = JSON.parse(npmListOutput);
-		return dependencyTree;
-	}
+    const dependencyTree = JSON.parse(npmListOutput);
+    return dependencyTree;
+  }
 }

@@ -2,20 +2,26 @@
   "name": "nodemodulecollector",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/main.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "start": "tsc && node dist/main.js",
-    "lint": "eslint . --ext .ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "test": "node -r sucrase/register test.ts",
+    "lint": "eslint . --ext .ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/jest": "^29.5.13",
-    "jest": "^29.7.0",
-    "ts-jest": "^29.2.5",
-    "typescript": "^5.6.2"
+    "@types/node": "^16.11.4",
+    "sucrase": "^3.20.3",
+    "tsup": "^5.4.4",
+    "typescript": "^5.6.2",
+    "uvu": "^0.5.2"
   },
   "dependencies": {
     "detect-package-manager": "3.0.2"
