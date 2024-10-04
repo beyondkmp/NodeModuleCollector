@@ -14,7 +14,8 @@ export class PnpmNodeModulesCollector extends NodeModulesCollector {
       encoding: "utf-8",
     });
 
-    const dependencyTree:DependencyTree = JSON.parse(npmListOutput)[0];
+    const dependencyTree: DependencyTree = JSON.parse(npmListOutput)[0];
+    console.log(dependencyTree);
     return dependencyTree;
   }
 }
