@@ -23,26 +23,21 @@ result is node modules array, like:
 ```json
 [
   {
-    "name": "test-app",
-    "version": "1.1.0",
-    "dir": "fixtures/yarn-workspace-demo/node_modules/test-app",
+    "name": "foo",
+    "version": "1.0.0",
+    "dir": "/path/fixtures/yarn-workspace-demo/node_modules/foo",
     "dependencies": [
       {
         "name": "ms",
-        "version": "2.1.1",
-        "dir": "fixtures/yarn-workspace-demo/packages/test-app/node_modules/ms"
+        "version": "2.0.0",
+        "dir": "/path/fixtures/yarn-workspace-demo/node_modules/ms"
       }
     ]
   },
   {
-    "name": "foo",
-    "version": "1.0.0",
-    "dir": "fixtures/yarn-workspace-demo/node_modules/foo"
-  },
-  {
     "name": "ms",
-    "version": "2.0.0",
-    "dir": "fixtures/yarn-workspace-demo/node_modules/ms"
+    "version": "2.1.1",
+    "dir": "/path/fixtures/yarn-workspace-demo/packages/test-app/node_modules/ms"
   }
 ]
 ```
