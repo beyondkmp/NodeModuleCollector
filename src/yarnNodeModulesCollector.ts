@@ -1,5 +1,6 @@
 import { execSync } from "child_process";
 import { NodeModulesCollector } from "./nodeModulesCollector"
+import { DependencyTree } from "./types"
 
 
 export class YarnNodeModulesCollector extends NodeModulesCollector {
@@ -13,7 +14,7 @@ export class YarnNodeModulesCollector extends NodeModulesCollector {
       encoding: "utf-8",
     });
 
-    const dependencyTree = JSON.parse(npmListOutput);
+    const dependencyTree:DependencyTree = JSON.parse(npmListOutput);
     return dependencyTree;
   }
 }

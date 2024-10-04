@@ -2,6 +2,7 @@ import { NpmNodeModulesCollector } from "./npmNodeModulesCollector"
 import { PnpmNodeModulesCollector } from "./pnpmNodeModulesCollector"
 import { YarnNodeModulesCollector } from "./yarnNodeModulesCollector"
 import { detect, PM } from "./packageManager"
+import { NodeModuleInfo } from "./types"
 
 async function getCollectorByPackageManager(rootDir: string) {
   const manager: PM = await detect({ cwd: rootDir })
@@ -16,13 +17,6 @@ async function getCollectorByPackageManager(rootDir: string) {
       console.debug(`Unsupported package manager: ${manager}`)
       return undefined;
   }
-}
-
-export interface NodeModuleInfo {
-  readonly name: string
-  readonly version: string
-  readonly dir: string
-  readonly dependencies: Array<NodeModuleInfo>
 }
 
 export async function getNodeModules(rootDir: string): Promise<NodeModuleInfo[]> {

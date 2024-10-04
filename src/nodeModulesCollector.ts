@@ -4,10 +4,10 @@ import {
   type HoisterResult,
 } from "./hoist";
 import path from 'path';
-
+import { NodeModuleInfo ,DependencyTree} from "./types"
 
 export abstract class NodeModulesCollector {
-  private nodeModules: any;
+  private nodeModules: NodeModuleInfo[];
   protected rootDir: string;
   protected dependencyPathMap: Map<string, string>;
 
@@ -62,7 +62,7 @@ export abstract class NodeModulesCollector {
     return result;
   }
 
-  abstract getDependenciesTree():any;
+  abstract getDependenciesTree():DependencyTree;
 
   private _getNodeModules(dependencies: Set<HoisterResult>, result = []) {
     if (dependencies.size === 0) return;

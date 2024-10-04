@@ -1,5 +1,6 @@
 import { execSync } from "child_process";
 import { NodeModulesCollector } from "./nodeModulesCollector"
+import { DependencyTree } from "./types"
 
 
 export class NpmNodeModulesCollector extends NodeModulesCollector {
@@ -7,13 +8,13 @@ export class NpmNodeModulesCollector extends NodeModulesCollector {
     super(rootDir);
   }
 
-  getDependenciesTree() {
+  getDependenciesTree():DependencyTree {
     const npmListOutput = execSync("npm list --omit dev -a --json --long", {
       cwd: this.rootDir,
       encoding: "utf-8",
     });
 
-    const dependencyTree = JSON.parse(npmListOutput);
+    const dependencyTree: DependencyTree = JSON.parse(npmListOutput);
     return dependencyTree;
   }
 }
