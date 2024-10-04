@@ -9,7 +9,7 @@ export class PnpmNodeModulesCollector extends NodeModulesCollector {
   }
 
   getDependenciesTree() {
-    const pnpmListOutput = execSync("pnpm list --prod -a --json --long  --depth Infinity", {
+    const pnpmListOutput = execSync("pnpm list --prod --json --long  --depth Infinity", {
       cwd: this.rootDir,
       encoding: "utf-8",
     });
