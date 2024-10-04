@@ -14,7 +14,7 @@ It is useful to collect all production node modules for a electron project, so t
 ## Usage
 
 ```shell
-import { getNodeModules } from 'node-module-collector';
+import { getNodeModules } from 'node-module-collector'
 const result = await getNodeModules(rootDir)
 ```
 
