@@ -86,17 +86,17 @@ export abstract class NodeModulesCollector {
   }
 
   private getTreeFromWorkspaces(tree: DependencyTree): DependencyTree {
-    if (tree.workspaces) {
+    if (tree.workspaces && tree.dependencies) {
       for (const [key, value] of Object.entries(tree.dependencies)) {
-        if(this.rootDir.endsWith(path.normalize(key))) {
+        if (this.rootDir.endsWith(path.normalize(key))) {
           return value
-        } 
+        }
       }
     }
     return tree
   }
 
-  public getNodeModules():NodeModuleInfo[] {
+  public getNodeModules(): NodeModuleInfo[] {
     const tree = this.getDependenciesTree()
     const realTree = this.getTreeFromWorkspaces(tree);
     const dependencyGraph = this.TransToDependencyGraph(realTree);
