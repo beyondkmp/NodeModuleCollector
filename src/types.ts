@@ -2,14 +2,22 @@ export interface NodeModuleInfo {
   readonly name: string
   readonly version: string
   readonly dir: string
-  readonly dependencies: Array<NodeModuleInfo>
+  readonly dependencies?: Array<NodeModuleInfo>
 }
 
 export interface DependencyTree {
-  version: string
-  name: string
-  path:string
+  readonly version: string
+  readonly name: string
+  readonly path:string
   dependencies: {
     [packageName: string]: DependencyTree
   };
+}
+
+export interface DependencyGraph {
+  [packageNameAndVersion: string]: PackageDependencies;
+}
+
+interface PackageDependencies {
+  dependencies?: string[];
 }

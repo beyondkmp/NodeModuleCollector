@@ -4,7 +4,7 @@ import {
   type HoisterResult,
 } from "./hoist";
 import path from 'path';
-import { NodeModuleInfo ,DependencyTree} from "./types"
+import { NodeModuleInfo, DependencyTree, DependencyGraph } from "./types"
 
 export abstract class NodeModulesCollector {
   private nodeModules: NodeModuleInfo[];
@@ -17,17 +17,16 @@ export abstract class NodeModulesCollector {
     this.rootDir = rootDir;
   }
 
-  private toTree(obj: any, key: string = `.`, nodes = new Map()): HoisterTree {
+  private toTree(obj: DependencyGraph, key: string = `.`, nodes: Map<string, HoisterTree> = new Map()): HoisterTree {
     let node = nodes.get(key);
     const name = key.match(/@?[^@]+/)![0];
     if (!node) {
       node = {
         name,
-        identName: (obj[key] || {}).identName || name,
+        identName: name,
         reference: key.match(/@?[^@]+@?(.+)?/)![1] || ``,
         dependencies: new Set<HoisterTree>(),
-        peerNames: new Set<string>((obj[key] || {}).peerNames || []),
-        dependencyKind: (obj[key] || {}).dependencyKind,
+        peerNames: new Set<string>([])
       };
       nodes.set(key, node);
 
@@ -38,18 +37,16 @@ export abstract class NodeModulesCollector {
     return node;
   }
 
-  public flattenDependencies(tree: any) {
-    const result = {
-      ".": {},
-    };
+  public TransToDependencyGraph(tree: DependencyTree): DependencyGraph {
+    const result: DependencyGraph = { ".": {} };
 
-    const flatten = (node: any, parentKey = ".") => {
+    const flatten = (node: DependencyTree, parentKey = ".") => {
       const dependencies = node.dependencies || {};
 
       for (const [key, value] of Object.entries(dependencies)) {
-        const version = (value as any).version || "";
+        const version = value.version || "";
         const newKey = `${key}@${version}`;
-        this.dependencyPathMap.set(newKey, path.normalize((value as any).path));
+        this.dependencyPathMap.set(newKey, path.normalize(value.path));
         if (!result[parentKey]?.dependencies) {
           result[parentKey] = { dependencies: [] };
         }
@@ -62,9 +59,9 @@ export abstract class NodeModulesCollector {
     return result;
   }
 
-  abstract getDependenciesTree():DependencyTree;
+  abstract getDependenciesTree(): DependencyTree;
 
-  private _getNodeModules(dependencies: Set<HoisterResult>, result = []) {
+  private _getNodeModules(dependencies: Set<HoisterResult>, result: NodeModuleInfo[]) {
     if (dependencies.size === 0) return;
 
     for (let d of dependencies.values()) {
@@ -83,12 +80,11 @@ export abstract class NodeModulesCollector {
     }
   }
 
-  public getNodeModules() {
+  public getNodeModules():NodeModuleInfo[] {
     const tree = this.getDependenciesTree()
-    const flattenedTree = this.flattenDependencies(tree);
+    const flattenedTree = this.TransToDependencyGraph(tree);
     const hoisterResult = hoist(this.toTree(flattenedTree), { check: true });
     this._getNodeModules(hoisterResult.dependencies, this.nodeModules);
     return this.nodeModules;
   }
-
 }

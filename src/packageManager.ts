@@ -1,7 +1,9 @@
+// copy from https://github.com/egoist/detect-package-manager/blob/main/src/index.ts
+// and merge https://github.com/egoist/detect-package-manager/pull/9 to support Monorepo
 import { promises as fs } from "fs";
 import { resolve } from "path";
-import {exec} from "child_process";
-import {promisify} from "util";
+import { exec } from "child_process";
+import { promisify } from "util";
 
 const execa = promisify(exec);
 

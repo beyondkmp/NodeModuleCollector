@@ -8,7 +8,7 @@ export class NpmNodeModulesCollector extends NodeModulesCollector {
     super(rootDir);
   }
 
-  getDependenciesTree():DependencyTree {
+  getDependenciesTree(): DependencyTree {
     const npmListOutput = execSync("npm list --omit dev -a --json --long", {
       cwd: this.rootDir,
       encoding: "utf-8",
