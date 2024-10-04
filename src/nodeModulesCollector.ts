@@ -17,7 +17,7 @@ export abstract class NodeModulesCollector {
     this.rootDir = rootDir;
   }
 
-  private toTree(obj: DependencyGraph, key: string = `.`, nodes: Map<string, HoisterTree> = new Map()): HoisterTree {
+  private transToHoisterTree(obj: DependencyGraph, key: string = `.`, nodes: Map<string, HoisterTree> = new Map()): HoisterTree {
     let node = nodes.get(key);
     const name = key.match(/@?[^@]+/)![0];
     if (!node) {
@@ -31,7 +31,7 @@ export abstract class NodeModulesCollector {
       nodes.set(key, node);
 
       for (const dep of (obj[key] || {}).dependencies || []) {
-        node.dependencies.add(this.toTree(obj, dep, nodes));
+        node.dependencies.add(this.transToHoisterTree(obj, dep, nodes));
       }
     }
     return node;
@@ -83,7 +83,7 @@ export abstract class NodeModulesCollector {
   public getNodeModules():NodeModuleInfo[] {
     const tree = this.getDependenciesTree()
     const flattenedTree = this.TransToDependencyGraph(tree);
-    const hoisterResult = hoist(this.toTree(flattenedTree), { check: true });
+    const hoisterResult = hoist(this.transToHoisterTree(flattenedTree), { check: true });
     this._getNodeModules(hoisterResult.dependencies, this.nodeModules);
     return this.nodeModules;
   }
