@@ -9,13 +9,12 @@ export class PnpmNodeModulesCollector extends NodeModulesCollector {
   }
 
   getDependenciesTree() {
-    const npmListOutput = execSync("pnpm list --prod -a --json --long  --depth Infinity", {
+    const pnpmListOutput = execSync("pnpm list --prod -a --json --long  --depth Infinity", {
       cwd: this.rootDir,
       encoding: "utf-8",
     });
 
-    const dependencyTree: DependencyTree = JSON.parse(npmListOutput)[0];
-    console.log(dependencyTree);
+    const dependencyTree: DependencyTree = JSON.parse(pnpmListOutput)[0];
     return dependencyTree;
   }
 }
