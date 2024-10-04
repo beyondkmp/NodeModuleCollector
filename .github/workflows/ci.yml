@@ -51,4 +51,4 @@ jobs:
         run: cd ./fixtures/yarn2-demo && yarn set version berry && yarn install
 
       - name: Build and Test
-        run: pnpm run test
+        run: npm run test
