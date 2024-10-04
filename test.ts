@@ -42,4 +42,15 @@ test("test pnpm package manager", async () => {
   assert.equal(result, expected);
 });
 
+test("test yarn1 package manager", async () => {
+  let rootDir = './fixtures/yarn-demo'
+  let expectedPath = path.join(rootDir, 'expected.json')
+  let expected:NodeModuleInfo = JSON.parse(fs.readFileSync(expectedPath, 'utf8'))
+
+  const result = await getNodeModules(rootDir)
+  transformToRelativePath(result)
+
+  assert.equal(result, expected);
+});
+
 test.run();

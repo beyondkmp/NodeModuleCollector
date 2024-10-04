@@ -1,5 +1,5 @@
 {
-  "name": "tar-demo",
+  "name": "parse-demo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,11 +9,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "electron-builder": "25.0.5"
-  },
   "dependencies": {
-    "tar": "7.4.3",
-    "yarn2": "^1.0.0"
+     "parse-asn1":"5.1.7"
   }
 }
