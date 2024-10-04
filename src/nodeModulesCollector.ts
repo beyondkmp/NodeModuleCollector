@@ -3,6 +3,7 @@ import {
   type HoisterTree,
   type HoisterResult,
 } from "./hoist";
+import path from 'path';
 
 
 export abstract class NodeModulesCollector {
@@ -48,7 +49,7 @@ export abstract class NodeModulesCollector {
       for (const [key, value] of Object.entries(dependencies)) {
         const version = (value as any).version || "";
         const newKey = `${key}@${version}`;
-        this.dependencyPathMap.set(newKey, (value as any).path);
+        this.dependencyPathMap.set(newKey, path.normalize((value as any).path));
         if (!result[parentKey]?.dependencies) {
           result[parentKey] = { dependencies: [] };
         }

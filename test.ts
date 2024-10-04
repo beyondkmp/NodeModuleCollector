@@ -1,5 +1,6 @@
 import { test } from "uvu";
 import path from 'path';
+import fs from 'fs';
 import * as assert from "uvu/assert";
 import { getNodeModules } from "./src";
 
@@ -10,31 +11,35 @@ interface NodeModuleInfo {
   dependencies: Array<NodeModuleInfo>
 }
 
-function transformToAbsolutePath(p: string) {
-  const fs = require('fs');
-  let deps: NodeModuleInfo[] = JSON.parse(fs.readFileSync(p, 'utf8'));
-
-  const _transfrom = (deps: NodeModuleInfo[]) => {
+function transformToRelativePath(deps: NodeModuleInfo[]) {
     for (let dep of deps) {
-      dep.dir = path.resolve(__dirname,dep.dir);
+      dep.dir = path.relative(__dirname, dep.dir).split(path.sep).join('/')
       if (dep.dependencies) {
-        _transfrom(dep.dependencies);
+        transformToRelativePath(dep.dependencies);
       }
     }
-  }
-  _transfrom(deps);
-
-  return deps;
 }
 
 test("test npm package manager", async () => {
-  let rootDir = './fixtures/npm-demo';
-  let expected = transformToAbsolutePath(path.join(rootDir, 'expected.json'));
-  const ms = await getNodeModules(rootDir)
-  let a =JSON.stringify(ms, null, 2)
-  let b = JSON.stringify(expected, null, 2)
-  assert.is(a, b);
+  let rootDir = './fixtures/npm-demo'
+  let expectedPath = path.join(rootDir, 'expected.json')
+  let expected:NodeModuleInfo = JSON.parse(fs.readFileSync(expectedPath, 'utf8'))
+
+  const result = await getNodeModules(rootDir)
+  transformToRelativePath(result)
+
+  assert.equal(result, expected);
 });
 
+test("test pnpm package manager", async () => {
+  let rootDir = './fixtures/pnpm-demo'
+  let expectedPath = path.join(rootDir, 'expected.json')
+  let expected:NodeModuleInfo = JSON.parse(fs.readFileSync(expectedPath, 'utf8'))
+
+  const result = await getNodeModules(rootDir)
+  transformToRelativePath(result)
+
+  assert.equal(result, expected);
+});
 
 test.run();

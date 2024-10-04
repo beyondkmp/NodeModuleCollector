@@ -1,0 +1,71 @@
+[
+  {
+    "name": "es5-ext",
+    "version": "0.10.53",
+    "dir": "fixtures/pnpm-demo/node_modules/.pnpm/es5-ext@0.10.53/node_modules/es5-ext"
+  },
+  {
+    "name": "next-tick",
+    "version": "1.0.0",
+    "dir": "fixtures/pnpm-demo/node_modules/.pnpm/next-tick@1.0.0/node_modules/next-tick"
+  },
+  {
+    "name": "es6-symbol",
+    "version": "3.1.4",
+    "dir": "fixtures/pnpm-demo/node_modules/.pnpm/es6-symbol@3.1.4/node_modules/es6-symbol"
+  },
+  {
+    "name": "es6-iterator",
+    "version": "2.0.3",
+    "dir": "fixtures/pnpm-demo/node_modules/.pnpm/es6-iterator@2.0.3/node_modules/es6-iterator"
+  },
+  {
+    "name": "ext",
+    "version": "1.7.0",
+    "dir": "fixtures/pnpm-demo/node_modules/.pnpm/ext@1.7.0/node_modules/ext"
+  },
+  {
+    "name": "d",
+    "version": "1.0.2",
+    "dir": "fixtures/pnpm-demo/node_modules/.pnpm/d@1.0.2/node_modules/d",
+    "dependencies": [
+      {
+        "name": "es5-ext",
+        "version": "0.10.64",
+        "dir": "fixtures/pnpm-demo/node_modules/.pnpm/es5-ext@0.10.64/node_modules/es5-ext"
+      },
+      {
+        "name": "next-tick",
+        "version": "1.1.0",
+        "dir": "fixtures/pnpm-demo/node_modules/.pnpm/next-tick@1.1.0/node_modules/next-tick"
+      }
+    ]
+  },
+  {
+    "name": "type",
+    "version": "2.7.3",
+    "dir": "fixtures/pnpm-demo/node_modules/.pnpm/type@2.7.3/node_modules/type"
+  },
+  {
+    "name": "esniff",
+    "version": "2.0.1",
+    "dir": "fixtures/pnpm-demo/node_modules/.pnpm/esniff@2.0.1/node_modules/esniff",
+    "dependencies": [
+      {
+        "name": "es5-ext",
+        "version": "0.10.64",
+        "dir": "fixtures/pnpm-demo/node_modules/.pnpm/es5-ext@0.10.64/node_modules/es5-ext"
+      },
+      {
+        "name": "next-tick",
+        "version": "1.1.0",
+        "dir": "fixtures/pnpm-demo/node_modules/.pnpm/next-tick@1.1.0/node_modules/next-tick"
+      }
+    ]
+  },
+  {
+    "name": "event-emitter",
+    "version": "0.3.5",
+    "dir": "fixtures/pnpm-demo/node_modules/.pnpm/event-emitter@0.3.5/node_modules/event-emitter"
+  }
+]
