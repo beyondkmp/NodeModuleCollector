@@ -14,7 +14,7 @@ async function getCollectorByPackageManager(rootDir: string) {
     case "yarn":
       return new YarnNodeModulesCollector(rootDir)
     default:
-      console.debug(`Unsupported package manager: ${manager}`)
+      console.error(`Unsupported package manager: ${manager}`)
       return undefined;
   }
 }
