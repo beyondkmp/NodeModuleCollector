@@ -4,6 +4,7 @@ import fs from 'fs';
 import * as assert from "uvu/assert";
 import { getNodeModules } from "./src";
 import { NodeModuleInfo } from "./src/types";
+import { detect } from "./src/packageManager";
 
 function transformToRelativePath(deps: NodeModuleInfo[]) {
   for (let dep of deps) {
@@ -57,5 +58,19 @@ test("test yarn1 workspace package manager", async () => {
 
   assert.equal(result, expected);
 });
+
+test("test yarn pnp with node-modules manager", async () => {
+  let rootDir = './fixtures/yarn2-demo'
+  let expectedPath = path.join(rootDir, 'expected.json')
+  let expected: NodeModuleInfo = JSON.parse(fs.readFileSync(expectedPath, 'utf8'))
+
+  const result = await getNodeModules(rootDir)
+  transformToRelativePath(result)
+  const pm = await detect({ cwd: rootDir })
+
+  assert.equal(pm, 'yarn');
+  assert.equal(result, expected);
+});
+
 
 test.run();

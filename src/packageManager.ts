@@ -1,9 +1,10 @@
 // copy from https://github.com/egoist/detect-package-manager/blob/main/src/index.ts
 // and merge https://github.com/egoist/detect-package-manager/pull/9 to support Monorepo
 import { promises as fs } from "fs";
-import { resolve } from "path";
+import { resolve, dirname } from "path";
 import { exec } from "child_process";
 import { promisify } from "util";
+import { dir } from "console";
 
 const execa = promisify(exec);
 
@@ -82,8 +83,10 @@ const detect = async ({
     return type;
   }
 
+  let tmpCwd = cwd;
   for (let i = 1; i <= 5; i++) {
-    type = await getTypeofLockFile(resolve(cwd, "/../".repeat(i)));
+    tmpCwd = dirname(tmpCwd);
+    type = await getTypeofLockFile(tmpCwd);
     if (type) {
       return type;
     }
