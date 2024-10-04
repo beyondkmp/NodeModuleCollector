@@ -16,15 +16,6 @@ export class YarnNodeModulesCollector extends NodeModulesCollector {
     });
 
     const dependencyTree:DependencyTree = JSON.parse(npmListOutput);
-
-    if (dependencyTree.workspaces) {
-      for (const [key, value] of Object.entries(dependencyTree.dependencies)) {
-        if(this.rootDir.endsWith(path.normalize(key))) {
-          return value
-        } 
-      }
-    }
-
     return dependencyTree;
   }
 }

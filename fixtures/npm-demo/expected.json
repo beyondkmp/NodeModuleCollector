@@ -1,8 +1,20 @@
 [
   {
-    "name": "tar",
-    "version": "7.4.3",
-    "dir": "fixtures/npm-demo/node_modules/tar"
+    "name": "@isaacs/cliui",
+    "version": "8.0.2",
+    "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui",
+    "dependencies": [
+      {
+        "name": "ansi-regex",
+        "version": "6.1.0",
+        "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/ansi-regex"
+      },
+      {
+        "name": "strip-ansi",
+        "version": "7.1.0",
+        "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/strip-ansi"
+      }
+    ]
   },
   {
     "name": "@isaacs/fs-minipass",
@@ -10,9 +22,94 @@
     "dir": "fixtures/npm-demo/node_modules/@isaacs/fs-minipass"
   },
   {
+    "name": "@pkgjs/parseargs",
+    "version": "0.11.0",
+    "dir": "fixtures/npm-demo/node_modules/@pkgjs/parseargs"
+  },
+  {
+    "name": "ansi-regex",
+    "version": "5.0.1",
+    "dir": "fixtures/npm-demo/node_modules/ansi-regex"
+  },
+  {
+    "name": "ansi-styles",
+    "version": "4.3.0",
+    "dir": "fixtures/npm-demo/node_modules/ansi-styles"
+  },
+  {
+    "name": "balanced-match",
+    "version": "1.0.2",
+    "dir": "fixtures/npm-demo/node_modules/balanced-match"
+  },
+  {
+    "name": "brace-expansion",
+    "version": "2.0.1",
+    "dir": "fixtures/npm-demo/node_modules/brace-expansion"
+  },
+  {
     "name": "chownr",
     "version": "3.0.0",
     "dir": "fixtures/npm-demo/node_modules/tar/node_modules/chownr"
+  },
+  {
+    "name": "color-convert",
+    "version": "2.0.1",
+    "dir": "fixtures/npm-demo/node_modules/color-convert"
+  },
+  {
+    "name": "color-name",
+    "version": "1.1.4",
+    "dir": "fixtures/npm-demo/node_modules/color-name"
+  },
+  {
+    "name": "cross-spawn",
+    "version": "7.0.3",
+    "dir": "fixtures/npm-demo/node_modules/cross-spawn"
+  },
+  {
+    "name": "eastasianwidth",
+    "version": "0.2.0",
+    "dir": "fixtures/npm-demo/node_modules/eastasianwidth"
+  },
+  {
+    "name": "emoji-regex",
+    "version": "8.0.0",
+    "dir": "fixtures/npm-demo/node_modules/emoji-regex"
+  },
+  {
+    "name": "foreground-child",
+    "version": "3.3.0",
+    "dir": "fixtures/npm-demo/node_modules/foreground-child"
+  },
+  {
+    "name": "glob",
+    "version": "10.4.5",
+    "dir": "fixtures/npm-demo/node_modules/tar/node_modules/glob"
+  },
+  {
+    "name": "is-fullwidth-code-point",
+    "version": "3.0.0",
+    "dir": "fixtures/npm-demo/node_modules/is-fullwidth-code-point"
+  },
+  {
+    "name": "isexe",
+    "version": "2.0.0",
+    "dir": "fixtures/npm-demo/node_modules/isexe"
+  },
+  {
+    "name": "jackspeak",
+    "version": "3.4.3",
+    "dir": "fixtures/npm-demo/node_modules/jackspeak"
+  },
+  {
+    "name": "lru-cache",
+    "version": "10.4.3",
+    "dir": "fixtures/npm-demo/node_modules/path-scurry/node_modules/lru-cache"
+  },
+  {
+    "name": "minimatch",
+    "version": "9.0.5",
+    "dir": "fixtures/npm-demo/node_modules/tar/node_modules/minimatch"
   },
   {
     "name": "minipass",
@@ -30,86 +127,9 @@
     "dir": "fixtures/npm-demo/node_modules/tar/node_modules/mkdirp"
   },
   {
-    "name": "yallist",
-    "version": "5.0.0",
-    "dir": "fixtures/npm-demo/node_modules/tar/node_modules/yallist"
-  },
-  {
-    "name": "rimraf",
-    "version": "5.0.10",
-    "dir": "fixtures/npm-demo/node_modules/tar/node_modules/rimraf"
-  },
-  {
-    "name": "glob",
-    "version": "10.4.5",
-    "dir": "fixtures/npm-demo/node_modules/tar/node_modules/glob"
-  },
-  {
-    "name": "foreground-child",
-    "version": "3.3.0",
-    "dir": "fixtures/npm-demo/node_modules/foreground-child"
-  },
-  {
-    "name": "jackspeak",
-    "version": "3.4.3",
-    "dir": "fixtures/npm-demo/node_modules/jackspeak"
-  },
-  {
-    "name": "minimatch",
-    "version": "9.0.5",
-    "dir": "fixtures/npm-demo/node_modules/tar/node_modules/minimatch"
-  },
-  {
     "name": "package-json-from-dist",
     "version": "1.0.0",
     "dir": "fixtures/npm-demo/node_modules/package-json-from-dist"
-  },
-  {
-    "name": "path-scurry",
-    "version": "1.11.1",
-    "dir": "fixtures/npm-demo/node_modules/path-scurry"
-  },
-  {
-    "name": "cross-spawn",
-    "version": "7.0.3",
-    "dir": "fixtures/npm-demo/node_modules/cross-spawn"
-  },
-  {
-    "name": "signal-exit",
-    "version": "4.1.0",
-    "dir": "fixtures/npm-demo/node_modules/foreground-child/node_modules/signal-exit"  
-  },
-  {
-    "name": "@isaacs/cliui",
-    "version": "8.0.2",
-    "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui",
-    "dependencies": [
-      {
-        "name": "strip-ansi",
-        "version": "7.1.0",
-        "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/strip-ansi" 
-      },
-      {
-        "name": "ansi-regex",
-        "version": "6.1.0",
-        "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/ansi-regex" 
-      }
-    ]
-  },
-  {
-    "name": "@pkgjs/parseargs",
-    "version": "0.11.0",
-    "dir": "fixtures/npm-demo/node_modules/@pkgjs/parseargs"
-  },
-  {
-    "name": "brace-expansion",
-    "version": "2.0.1",
-    "dir": "fixtures/npm-demo/node_modules/brace-expansion"
-  },
-  {
-    "name": "lru-cache",
-    "version": "10.4.3",
-    "dir": "fixtures/npm-demo/node_modules/path-scurry/node_modules/lru-cache"
   },
   {
     "name": "path-key",
@@ -117,25 +137,40 @@
     "dir": "fixtures/npm-demo/node_modules/path-key"
   },
   {
+    "name": "path-scurry",
+    "version": "1.11.1",
+    "dir": "fixtures/npm-demo/node_modules/path-scurry"
+  },
+  {
+    "name": "rimraf",
+    "version": "5.0.10",
+    "dir": "fixtures/npm-demo/node_modules/tar/node_modules/rimraf"
+  },
+  {
     "name": "shebang-command",
     "version": "2.0.0",
     "dir": "fixtures/npm-demo/node_modules/shebang-command"
   },
   {
-    "name": "which",
-    "version": "2.0.2",
-    "dir": "fixtures/npm-demo/node_modules/which"
+    "name": "shebang-regex",
+    "version": "3.0.0",
+    "dir": "fixtures/npm-demo/node_modules/shebang-regex"
   },
   {
-    "name": "string-width-cjs",
-    "version": "4.2.3",
-    "dir": "fixtures/npm-demo/node_modules/string-width-cjs"
+    "name": "signal-exit",
+    "version": "4.1.0",
+    "dir": "fixtures/npm-demo/node_modules/foreground-child/node_modules/signal-exit"
   },
   {
     "name": "string-width",
     "version": "5.1.2",
-    "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/string-width",  
+    "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/string-width",
     "dependencies": [
+      {
+        "name": "ansi-regex",
+        "version": "6.1.0",
+        "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/ansi-regex"
+      },
       {
         "name": "emoji-regex",
         "version": "9.2.2",
@@ -144,19 +179,56 @@
       {
         "name": "strip-ansi",
         "version": "7.1.0",
-        "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/strip-ansi" 
-      },
-      {
-        "name": "ansi-regex",
-        "version": "6.1.0",
-        "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/ansi-regex" 
+        "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/strip-ansi"
       }
     ]
+  },
+  {
+    "name": "string-width-cjs",
+    "version": "4.2.3",
+    "dir": "fixtures/npm-demo/node_modules/string-width-cjs"
+  },
+  {
+    "name": "strip-ansi",
+    "version": "6.0.1",
+    "dir": "fixtures/npm-demo/node_modules/strip-ansi"
   },
   {
     "name": "strip-ansi-cjs",
     "version": "6.0.1",
     "dir": "fixtures/npm-demo/node_modules/strip-ansi-cjs"
+  },
+  {
+    "name": "tar",
+    "version": "7.4.3",
+    "dir": "fixtures/npm-demo/node_modules/tar"
+  },
+  {
+    "name": "which",
+    "version": "2.0.2",
+    "dir": "fixtures/npm-demo/node_modules/which"
+  },
+  {
+    "name": "wrap-ansi",
+    "version": "8.1.0",
+    "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/wrap-ansi",
+    "dependencies": [
+      {
+        "name": "ansi-regex",
+        "version": "6.1.0",
+        "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/ansi-regex"
+      },
+      {
+        "name": "ansi-styles",
+        "version": "6.2.1",
+        "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/ansi-styles"
+      },
+      {
+        "name": "strip-ansi",
+        "version": "7.1.0",
+        "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/strip-ansi"
+      }
+    ]
   },
   {
     "name": "wrap-ansi-cjs",
@@ -171,80 +243,8 @@
     ]
   },
   {
-    "name": "wrap-ansi",
-    "version": "8.1.0",
-    "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/wrap-ansi",     
-    "dependencies": [
-      {
-        "name": "ansi-styles",
-        "version": "6.2.1",
-        "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/ansi-styles"
-      },
-      {
-        "name": "strip-ansi",
-        "version": "7.1.0",
-        "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/strip-ansi" 
-      },
-      {
-        "name": "ansi-regex",
-        "version": "6.1.0",
-        "dir": "fixtures/npm-demo/node_modules/@isaacs/cliui/node_modules/ansi-regex" 
-      }
-    ]
-  },
-  {
-    "name": "balanced-match",
-    "version": "1.0.2",
-    "dir": "fixtures/npm-demo/node_modules/balanced-match"
-  },
-  {
-    "name": "shebang-regex",
-    "version": "3.0.0",
-    "dir": "fixtures/npm-demo/node_modules/shebang-regex"
-  },
-  {
-    "name": "isexe",
-    "version": "2.0.0",
-    "dir": "fixtures/npm-demo/node_modules/isexe"
-  },
-  {
-    "name": "emoji-regex",
-    "version": "8.0.0",
-    "dir": "fixtures/npm-demo/node_modules/emoji-regex"
-  },
-  {
-    "name": "is-fullwidth-code-point",
-    "version": "3.0.0",
-    "dir": "fixtures/npm-demo/node_modules/is-fullwidth-code-point"
-  },
-  {
-    "name": "strip-ansi",
-    "version": "6.0.1",
-    "dir": "fixtures/npm-demo/node_modules/strip-ansi"
-  },
-  {
-    "name": "eastasianwidth",
-    "version": "0.2.0",
-    "dir": "fixtures/npm-demo/node_modules/eastasianwidth"
-  },
-  {
-    "name": "ansi-regex",
-    "version": "5.0.1",
-    "dir": "fixtures/npm-demo/node_modules/ansi-regex"
-  },
-  {
-    "name": "ansi-styles",
-    "version": "4.3.0",
-    "dir": "fixtures/npm-demo/node_modules/ansi-styles"
-  },
-  {
-    "name": "color-convert",
-    "version": "2.0.1",
-    "dir": "fixtures/npm-demo/node_modules/color-convert"
-  },
-  {
-    "name": "color-name",
-    "version": "1.1.4",
-    "dir": "fixtures/npm-demo/node_modules/color-name"
+    "name": "yallist",
+    "version": "5.0.0",
+    "dir": "fixtures/npm-demo/node_modules/tar/node_modules/yallist"
   }
 ]

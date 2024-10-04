@@ -44,6 +44,10 @@ export abstract class NodeModulesCollector {
       const dependencies = node.dependencies || {};
 
       for (const [key, value] of Object.entries(dependencies)) {
+        // Skip empty dependencies(like some optionalDependencies)
+        if (Object.keys(value).length === 0) {
+          continue
+        }
         const version = value.version || "";
         const newKey = `${key}@${version}`;
         this.dependencyPathMap.set(newKey, path.normalize(value.path));
@@ -78,6 +82,7 @@ export abstract class NodeModulesCollector {
         this._getNodeModules(d.dependencies, node['dependencies']);
       }
     }
+    result.sort((a, b) => a.name.localeCompare(b.name));
   }
 
   private getTreeFromWorkspaces(tree: DependencyTree): DependencyTree {

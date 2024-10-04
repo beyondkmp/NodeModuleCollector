@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
      "parse-asn1":"5.1.7"
+  },
+  "optionalDependencies": {
+    "node-mac-permissions": "2.3.0"
   }
 }
