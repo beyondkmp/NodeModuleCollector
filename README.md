@@ -1,4 +1,4 @@
-# NodeModuleCollector
+# node-module-collector   
 
 This is a simple tool to collect all production node modules used in a project. It supports npm, yarn1, pnpm and yarn berry(with node-modules).
 

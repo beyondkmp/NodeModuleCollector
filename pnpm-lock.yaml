@@ -980,7 +980,7 @@ snapshots:
       strip-final-newline: 2.0.0
 
   fdir@6.4.0(picomatch@4.0.2):
-    optionalDependencies:
+    dependencies:
       picomatch: 4.0.2
 
   fill-range@7.1.1:
@@ -1226,7 +1226,6 @@ snapshots:
       sucrase: 3.35.0
       tinyglobby: 0.2.9
       tree-kill: 1.2.2
-    optionalDependencies:
       typescript: 5.6.2
     transitivePeerDependencies:
       - jiti
