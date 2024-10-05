@@ -26,4 +26,4 @@ export async function getNodeModules(rootDir: string): Promise<NodeModuleInfo[]>
   }
 }
 
-export { detect, getNpmVersion };
+export { detect, getNpmVersion, PM };

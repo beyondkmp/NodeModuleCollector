@@ -1,5 +1,4 @@
 import { execSync } from "child_process";
-import path from "path";
 import { NodeModulesCollector } from "./nodeModulesCollector"
 import { DependencyTree } from "./types"
 
