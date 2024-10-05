@@ -13,13 +13,13 @@ export interface DependencyTree {
   readonly path:string
   dependencies: {
     [packageName: string]: DependencyTree
-  };
+  }
 }
 
 export interface DependencyGraph {
-  [packageNameAndVersion: string]: PackageDependencies;
+  [packageNameAndVersion: string]: PackageDependencies
 }
 
 interface PackageDependencies {
-  dependencies?: string[];
+  dependencies?: string[]
 }
