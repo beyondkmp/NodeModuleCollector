@@ -1,7 +1,7 @@
 import { NpmNodeModulesCollector } from "./npmNodeModulesCollector"
 import { PnpmNodeModulesCollector } from "./pnpmNodeModulesCollector"
 import { YarnNodeModulesCollector } from "./yarnNodeModulesCollector"
-import { detect, PM } from "./packageManager"
+import { detect, PM, getNpmVersion } from "./packageManager"
 import { NodeModuleInfo } from "./types"
 
 async function getCollectorByPackageManager(rootDir: string) {
@@ -25,3 +25,5 @@ export async function getNodeModules(rootDir: string): Promise<NodeModuleInfo[]>
     return collector.getNodeModules()
   }
 }
+
+export { detect, getNpmVersion };

@@ -2,9 +2,8 @@ import { test } from "uvu";
 import path from 'path';
 import fs from 'fs';
 import * as assert from "uvu/assert";
-import { getNodeModules } from "./src";
+import { getNodeModules, getNpmVersion, detect } from "./src";
 import { NodeModuleInfo } from "./src/types";
-import { detect } from "./src/packageManager";
 
 function transformToRelativePath(deps: NodeModuleInfo[]) {
   for (let dep of deps) {
@@ -67,6 +66,7 @@ test("test yarn pnp with node-modules manager", async () => {
   const result = await getNodeModules(rootDir)
   transformToRelativePath(result)
   const pm = await detect({ cwd: rootDir })
+  const version = await getNpmVersion(pm)
 
   assert.equal(pm, 'yarn');
   assert.equal(result, expected);

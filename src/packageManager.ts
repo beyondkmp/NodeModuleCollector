@@ -4,7 +4,6 @@ import { promises as fs } from "fs";
 import { resolve, dirname } from "path";
 import { exec } from "child_process";
 import { promisify } from "util";
-import { dir } from "console";
 
 const execa = promisify(exec);
 
